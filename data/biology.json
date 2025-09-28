@@ -1,0 +1,52 @@
+[
+  {
+    "question": "Which of the following is a characteristic feature of Arthropoda?",
+    "options": {
+      "A": "Presence of a notochord",
+      "B": "Exoskeleton made of chitin",
+      "C": "Closed circulatory system",
+      "D": "Radial symmetry"
+    },
+    "answer": "B"
+  },
+  {
+    "question": "What is the primary role of the hypothalamus in the human body?",
+    "options": {
+      "A": "Regulation of blood sugar levels",
+      "B": "Control of body temperature and hunger",
+      "C": "Production of digestive enzymes",
+      "D": "Filtration of blood in the kidneys"
+    },
+    "answer": "B"
+  },
+  {
+    "question": "Which process is involved in the formation of ATP during cellular respiration?",
+    "options": {
+      "A": "Glycolysis",
+      "B": "Chemiosmotic hypothesis",
+      "C": "Photosynthesis",
+      "D": "Transcription"
+    },
+    "answer": "B"
+  },
+  {
+    "question": "Which of the following is an example of a disease caused by a virus?",
+    "options": {
+      "A": "Tuberculosis",
+      "B": "Hepatitis",
+      "C": "Ringworm",
+      "D": "Malaria"
+    },
+    "answer": "B"
+  },
+  {
+    "question": "What is the function of auxins in plants?",
+    "options": {
+      "A": "Promote leaf abscission",
+      "B": "Stimulate cell elongation",
+      "C": "Inhibit seed germination",
+      "D": "Regulate stomatal closure"
+    },
+    "answer": "B"
+  }
+]
