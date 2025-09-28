@@ -1,0 +1,52 @@
+[
+  {
+    "question": "If the critical angle for a TIR from medium to vacuum is 30°, then calculate the velocity of a light ray in the medium –",
+    "options": {
+      "A": "3 x 10^8 m/s",
+      "B": "1.5 x 10^8 m/s",
+      "C": "0.75 x 10^8 m/s",
+      "D": "2 x 10^8 m/s"
+    },
+    "answer": "B"
+  },
+  {
+    "question": "What is the magnification produced by plane mirrors?",
+    "options": {
+      "A": "+1",
+      "B": "Zero",
+      "C": "-1",
+      "D": "None of these"
+    },
+    "answer": "A"
+  },
+  {
+    "question": "Thermocouples are based on which principal?",
+    "options": {
+      "A": "Peltier effects",
+      "B": "Joule effect",
+      "C": "Thomson effect",
+      "D": "Seebeck effect"
+    },
+    "answer": "D"
+  },
+  {
+    "question": "What is the law that governs forces between electric charges?",
+    "options": {
+      "A": "Coulomb’s law",
+      "B": "Faraday’s law",
+      "C": "Ampere’s law",
+      "D": "Ohm’s law"
+    },
+    "answer": "A"
+  },
+  {
+    "question": "Mention the relation between escape velocity and orbital velocity, when a satellite is close to the surface of the earth –",
+    "options": {
+      "A": "ve = √2 v0",
+      "B": "v0 = √2 ve",
+      "C": "ve = √2 v0",
+      "D": "v0 = ve"
+    },
+    "answer": "A"
+  }
+]
