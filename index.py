@@ -1,8 +1,8 @@
 import telebot
 from apscheduler.schedulers.background import BackgroundScheduler
 import threading
-from quiz import load_questions, get_random_question, format_quiz_message, get_correct_response, get_wrong_response
 import os
+from quiz import load_questions, get_random_question, format_quiz_message, get_correct_response, get_wrong_response
 
 # Bot setup
 TOKEN = os.environ.get('BOT_TOKEN')
@@ -17,6 +17,17 @@ groups = set()  # Subscribed group chat_ids
 active_quizzes = {}  # {chat_id: {"answer": str, "answered": set(user_ids)}}
 user_scores = {}  # {user_id: int}
 
+# Ensure single instance of polling
+polling_thread = None
+
+def clear_webhook():
+    """Clear any existing webhook to ensure polling works."""
+    try:
+        bot.remove_webhook()
+        print("Webhook cleared successfully.")
+    except Exception as e:
+        print(f"Error clearing webhook: {e}")
+
 def send_quiz(chat_id):
     """Send a random quiz to a group."""
     quiz_data = get_random_question(subjects)
@@ -24,13 +35,18 @@ def send_quiz(chat_id):
         bot.send_message(chat_id, "❌ No questions loaded! Add data/*.json files.")
         return
     
-    message = format_quiz_message(quiz_data)
-    sent_msg = bot.send_message(chat_id, message)
-    
-    active_quizzes[chat_id] = {
-        "answer": quiz_data["answer"],
-        "answered": set()
-    }
+    try:
+        message = format_quiz_message(quiz_data)
+        sent_msg = bot.send_message(chat_id, message)
+        
+        active_quizzes[chat_id] = {
+            "answer": quiz_data["answer"],
+            "answered": set()
+        }
+    except telebot.apihelper.ApiTelegramException as e:
+        print(f"Error sending quiz to {chat_id}: {e}")
+        if "chat not found" in str(e).lower() or "blocked by user" in str(e).lower():
+            groups.discard(chat_id)
 
 def send_quiz_to_all():
     """Send quiz to all subscribed groups."""
@@ -39,8 +55,7 @@ def send_quiz_to_all():
             send_quiz(chat_id)
         except Exception as e:
             print(f"Error sending to {chat_id}: {e}")
-            if chat_id not in groups:
-                groups.discard(chat_id)
+            groups.discard(chat_id)
 
 # Handlers
 @bot.message_handler(commands=['start'])
@@ -79,26 +94,45 @@ def quiz_answer_handler(message):
     quiz["answered"].add(user_id)
     current_score = user_scores.get(user_id, 0)
     
-    if user_answer == quiz["answer"]:
-        new_score = current_score + 4
-        response = get_correct_response(new_score)
-        user_scores[user_id] = new_score
-    else:
-        new_score = current_score - 1
-        response = get_wrong_response(new_score)
-        user_scores[user_id] = new_score
-    
-    bot.reply_to(message, response)
-    
-    # Clean up if all answered (optional, but for now, keep until next quiz)
+    try:
+        if user_answer == quiz["answer"]:
+            new_score = current_score + 4
+            response = get_correct_response(new_score)
+            user_scores[user_id] = new_score
+        else:
+            new_score = current_score - 1
+            response = get_wrong_response(new_score)
+            user_scores[user_id] = new_score
+        
+        bot.reply_to(message, response)
+    except Exception as e:
+        print(f"Error handling answer for {chat_id}: {e}")
+        bot.reply_to(message, "⚠️ Error processing your answer. Try again!")
 
 # Scheduler setup
 def start_scheduler():
     scheduler = BackgroundScheduler()
     scheduler.add_job(send_quiz_to_all, 'interval', minutes=30)
     scheduler.start()
+    print("Scheduler started.")
+
+def start_polling():
+    """Start polling with error handling and single instance check."""
+    global polling_thread
+    if polling_thread and polling_thread.is_alive():
+        print("Polling already running.")
+        return
+    
+    clear_webhook()  # Clear any existing webhook before polling
+    try:
+        polling_thread = threading.Thread(target=bot.infinity_polling, args=(True, 1))
+        polling_thread.daemon = True
+        polling_thread.start()
+        print("Bot polling started.")
+    except Exception as e:
+        print(f"Error starting polling: {e}")
 
 if __name__ == "__main__":
     print("Starting NEETARK bot...")
     start_scheduler()
-    bot.infinity_polling(none_stop=True, interval=1)
+    start_polling()
