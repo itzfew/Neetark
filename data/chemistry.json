@@ -1,0 +1,52 @@
+[
+  {
+    "question": "Which one of the following will not reduce an acidified solution of potassium dichromate (VI)?",
+    "options": {
+      "A": "(CH₃)₂C(OH)CH₃",
+      "B": "FeSO₄",
+      "C": "CH₃CH₂CH(OH)CH₃",
+      "D": "Zn"
+    },
+    "answer": "A"
+  },
+  {
+    "question": "The decomposition of KClO₃ to KCl and O₂ on heating is an example of",
+    "options": {
+      "A": "intermolecular redox change",
+      "B": "intramolecular redox change",
+      "C": "disproportionation or auto redox change",
+      "D": "none of these"
+    },
+    "answer": "B"
+  },
+  {
+    "question": "Disproportionation means",
+    "options": {
+      "A": "only oxidation",
+      "B": "only reduction",
+      "C": "both, oxidation and reduction of a reactant",
+      "D": "neither oxidation nor reduction"
+    },
+    "answer": "C"
+  },
+  {
+    "question": "The compounds behaving both oxidizing, as well as a reducing agent, is",
+    "options": {
+      "A": "H₂O₂",
+      "B": "SO₂",
+      "C": "HNO₂",
+      "D": "HNO₃"
+    },
+    "answer": "A"
+  },
+  {
+    "question": "A substance which can be oxidised as well as reduced easily is",
+    "options": {
+      "A": "HCl",
+      "B": "HClO",
+      "C": "HClO₃",
+      "D": "HClO₄"
+    },
+    "answer": "B"
+  }
+]
